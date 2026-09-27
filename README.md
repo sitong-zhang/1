@@ -1,5 +1,7 @@
 # 1
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 一个轻量实验与占位仓库，用于测试 GitHub 功能与持续集成流程。
 
 ## 用途
