@@ -1,4 +1,4 @@
-# 1
+# experiments
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -12,8 +12,8 @@
 
 ## 在线访问
 
-- 仓库主页：https://github.com/sitong-zhang/1
-- 静态站点：https://sitong-zhang.github.io/1/
+- 仓库主页：https://github.com/sitong-zhang/experiments
+- 静态站点：https://sitong-zhang.github.io/experiments/
 
 ---
 
