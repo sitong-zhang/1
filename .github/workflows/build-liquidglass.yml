@@ -48,7 +48,7 @@ jobs:
       - name: Apply IOS26 source patch
         run: |
           cd liquidglass
-          wget -q https://github.com/sitong-zhang/experiments/releases/download/v2.0.1/patch.zip -O /tmp/patch.zip
+          wget -q https://github.com/sitong-zhang/experiments/releases/download/ios26-src/patch.zip -O /tmp/patch.zip
           unzip -q /tmp/patch.zip -d /tmp/patch
           echo "=== 覆盖 app/src (IOS26 原创源码) ==="
           cp -r /tmp/patch/appsrc/src/* app/src/
