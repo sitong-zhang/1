@@ -1,4 +1,4 @@
-# Liquid Glass APK 云端构建工作流
+# Liquid Glass APK 云端构建工作流 v2
 name: Build Liquid Glass APK
 
 on:
@@ -22,16 +22,22 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses || true
-
-      - name: Install SDK Build-Tools & Platform 37
+      - name: Download Android cmdline-tools
         run: |
-          sdkmanager --install "platforms;android-37" "build-tools;37.0.0" "platform-tools" || true
-          sdkmanager --install "platforms;android-36" "build-tools;35.0.0" || true
+          mkdir -p $HOME/android-sdk/cmdline-tools
+          cd $HOME/android-sdk/cmdline-tools
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdtools.zip
+          unzip -q cmdtools.zip
+          mv cmdline-tools latest 2>/dev/null || true
+          ls -la $HOME/android-sdk/cmdline-tools/latest/bin/
+          echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
+          echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+
+      - name: Install SDK packages
+        run: |
+          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          sdkmanager --install "platform-tools" "platforms;android-37" "build-tools;37.0.0" "platforms;android-36" "build-tools;35.0.0" "platforms;android-35" "build-tools;34.0.0" 2>&1 | tail -5
 
       - name: Clone AndroidLiquidGlass source
         run: |
@@ -45,11 +51,9 @@ jobs:
       - name: Build APK (Debug)
         working-directory: liquidglass
         run: |
-          export ANDROID_HOME=$ANDROID_SDK_ROOT
-          export ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT
-          ./gradlew :androidApp:assembleDebug --no-daemon --stacktrace 2>&1 | tail -40
+          ./gradlew :androidApp:assembleDebug --no-daemon --stacktrace 2>&1 | tail -50
 
-      - name: Build APK (Release, unsigned fallback)
+      - name: Build APK (Release)
         working-directory: liquidglass
         if: always()
         run: |
