@@ -1,8 +1,9 @@
-# Liquid Glass APK 云端构建工作流 v2
-name: Build Liquid Glass APK
+# IOS26 云端构建工作流 v3
+# clone 官方 AndroidLiquidGlass 源码 → 应用 IOS26 原创源码补丁 → 构建带 IOS26 应用名的 APK
+name: Build IOS26 APK
 
 on:
-  workflow_dispatch:        # 手动触发
+  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -29,7 +30,6 @@ jobs:
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdtools.zip
           unzip -q cmdtools.zip
           mv cmdline-tools latest 2>/dev/null || true
-          ls -la $HOME/android-sdk/cmdline-tools/latest/bin/
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
@@ -37,7 +37,7 @@ jobs:
       - name: Install SDK packages
         run: |
           yes | sdkmanager --licenses > /dev/null 2>&1 || true
-          sdkmanager --install "platform-tools" "platforms;android-37" "build-tools;37.0.0" "platforms;android-36" "build-tools;35.0.0" "platforms;android-35" "build-tools;34.0.0" 2>&1 | tail -5
+          sdkmanager --install "platform-tools" "platforms;android-37" "build-tools;37.0.0" "platforms;android-36" "build-tools;35.0.0" 2>&1 | tail -5
 
       - name: Clone AndroidLiquidGlass source
         run: |
@@ -45,13 +45,26 @@ jobs:
           git clone --depth 1 https://github.com/Kyant0/AndroidLiquidGlass.git liquidglass
           ls -la liquidglass/
 
+      - name: Apply IOS26 source patch
+        run: |
+          cd liquidglass
+          wget -q https://github.com/sitong-zhang/experiments/releases/download/v2.0.1/patch.zip -O /tmp/patch.zip
+          unzip -q /tmp/patch.zip -d /tmp/patch
+          echo "=== 覆盖 app/src (IOS26 原创源码) ==="
+          cp -r /tmp/patch/appsrc/src/* app/src/
+          echo "=== 应用 IOS26 应用名 ==="
+          cp /tmp/patch/androidApp/src/main/res/values/strings.xml androidApp/src/main/res/values/strings.xml
+          cat androidApp/src/main/res/values/strings.xml
+          echo "=== 验证 IOS26 源码 ==="
+          grep -rl "Ios26Button\|Ios26Switch\|Ios26Slider\|GlassShowcaseScaffold" app/src/ | head -20
+
       - name: Grant gradlew permission
         run: chmod +x liquidglass/gradlew
 
       - name: Build APK (Debug)
         working-directory: liquidglass
         run: |
-          ./gradlew :androidApp:assembleDebug --no-daemon --stacktrace 2>&1 | tail -50
+          ./gradlew :androidApp:assembleDebug --no-daemon 2>&1 | tail -50
 
       - name: Build APK (Release)
         working-directory: liquidglass
@@ -61,32 +74,47 @@ jobs:
 
       - name: Locate APK outputs
         run: |
-          echo "=== APK 产物 ==="
+          echo "=== IOS26 APK 产物 ==="
           find liquidglass -type f -name "*.apk" | tee /tmp/apk_list.txt
           ls -la liquidglass/androidApp/build/outputs/apk/ 2>/dev/null || true
 
       - name: Upload APK artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: liquidglass-apks
+          name: ios26-apks
           path: |
             liquidglass/androidApp/build/outputs/apk/**/*.apk
           if-no-files-found: warn
 
-      - name: Upload APK to release
+      - name: Rename APKs to IOS26
+        working-directory: liquidglass
         if: always()
         run: |
-          VERSION="2.0.1"
-          gh release delete v$VERSION --yes 2>/dev/null || true
-          gh release create v$VERSION --title "AndroidLiquidGlass $VERSION" --notes "Auto-built APK" || true
+          if [ -f androidApp/build/outputs/apk/debug/androidApp-debug.apk ]; then
+            cp androidApp/build/outputs/apk/debug/androidApp-debug.apk IOS26-debug.apk
+            echo "已重命名 IOS26-debug.apk"
+          fi
+          if [ -f androidApp/build/outputs/apk/release/androidApp-release.apk ]; then
+            cp androidApp/build/outputs/apk/release/androidApp-release.apk IOS26-release.apk
+            echo "已重命名 IOS26-release.apk"
+          fi
+          find . -maxdepth 2 -name "IOS26*.apk" -o -name "androidApp*.apk" 2>/dev/null
+
+      - name: Upload IOS26 APK to release
+        if: always()
+        run: |
+          VERSION="ios26-1.0"
+          gh release delete $VERSION --yes 2>/dev/null || true
+          gh release create $VERSION --title "IOS26 Liquid Glass Gallery" --notes "原创 IOS26 液态玻璃组件展示应用 · 基于 AndroidLiquidGlass 引擎构建" || true
           for apk in $(find liquidglass -type f -name "*.apk"); do
-            echo "上传: $apk"
-            gh release upload v$VERSION "$apk" --clobber || true
+            base=$(basename "$apk")
+            echo "上传: $base"
+            gh release upload $VERSION "$apk" --clobber || true
           done
         env:
           GH_TOKEN: ${{ github.token }}
 
       - name: Summary
         run: |
-          echo "## 构建完成" >> $GITHUB_STEP_SUMMARY
-          echo "APK 已上传到 Releases: https://github.com/${{ github.repository }}/releases" >> $GITHUB_STEP_SUMMARY
+          echo "## IOS26 构建完成" >> $GITHUB_STEP_SUMMARY
+          echo "APK 已上传到 Release: https://github.com/${{ github.repository }}/releases" >> $GITHUB_STEP_SUMMARY
