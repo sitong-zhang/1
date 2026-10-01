@@ -83,7 +83,7 @@ window.APP_ICONS=[{"n":"Aima","f":"png/Aima.png","src":"icon83676d51"},
 
 | Field | Meaning |
 |---|---|
-| `n` | Display name (**contains Chinese characters**, e.g. `人人视频`, `录音`, `兴业银行`, `红果`) |
+| `n` | Display name (the upstream dataset uses Chinese app names, e.g. Renren Video, Recorder, Industrial Bank, Hongguo; the pipeline localizes them to English downstream) |
 | `f` | Path relative to `app-icons/`, **filenames with spaces are URL-encoded as `%20`** |
 | `src` | Icon id, can be reverse-looked-up to a name in `rename_map.json` |
 
