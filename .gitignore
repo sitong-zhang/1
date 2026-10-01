@@ -1,11 +1,11 @@
 # =============================================================================
-# 苹果液态玻璃 · 仓库忽略规则
+# Apple Liquid Glass · repository ignore rules
 # =============================================================================
-# 本仓库只提交「源码 + 文档」，不提交任何构建产物。
-# 要看效果请自行编译：见 docs/07-构建与排错.md
+# This repo commits only "source + docs"; no build artifacts are committed.
+# To see the effect, build it yourself; see docs/07-Build-and-Troubleshooting.md
 # =============================================================================
 
-# ---- 构建产物（最重要的一条：APK 不进仓库）----
+# ---- Build artifacts (most important rule: no APK in the repo) ----
 *.apk
 *.aab
 *.ap_
@@ -21,7 +21,7 @@ captures/
 .cxx/
 kotlin-js-store/
 
-# ---- 本机环境（每台机器都不一样，绝不提交）----
+# ---- Local environment (differs per machine; never commit) ----
 local.properties
 gradle.properties.local
 

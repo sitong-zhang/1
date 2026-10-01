@@ -222,11 +222,11 @@ fun IosDynamicIsland(
                     verticalArrangement = Arrangement.spacedBy(3.dp)
                 ) {
                     BasicText(
-                        "正在播放",
+                        "Now Playing",
                         style = TextStyle(Color.White.copy(alpha = 0.6f), 11.sp, FontWeight.Medium)
                     )
                     BasicText(
-                        "液态玻璃 · 演示音轨",
+                        "Liquid Glass · Demo Track",
                         style = TextStyle(Color.White, 15.sp, FontWeight.SemiBold)
                     )
                     Spacer(Modifier.height(4.dp))

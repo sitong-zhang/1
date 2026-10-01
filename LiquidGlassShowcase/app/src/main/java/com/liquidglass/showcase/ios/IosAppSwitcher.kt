@@ -88,7 +88,7 @@ fun BoxScope.IosAppSwitcher(
     ) {
         if (state.recents.isEmpty()) {
             BasicText(
-                "没有最近使用的应用",
+                "No recently used apps",
                 style = TextStyle(Color.White.copy(alpha = 0.75f), 15.sp)
             )
             return@Box
@@ -119,7 +119,7 @@ fun BoxScope.IosAppSwitcher(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BasicText(
-                "上滑卡片关闭 · 点击卡片切换",
+                "Swipe up to close · Tap to switch",
                 style = TextStyle(
                     if (isLightTheme) Color.Black.copy(alpha = 0.6f)
                     else Color.White.copy(alpha = 0.7f),
