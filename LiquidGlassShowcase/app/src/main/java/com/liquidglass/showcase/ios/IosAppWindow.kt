@@ -235,7 +235,7 @@ private fun IosAppPlaceholder(
         Spacer(Modifier.height(6.dp))
 
         BasicText(
-            "系统外壳演示 · 应用界面占位",
+            "System shell demo · App screen placeholder",
             style = TextStyle(IosColors.secondaryContent(isLightTheme), 14.sp)
         )
 
@@ -252,17 +252,17 @@ private fun IosAppPlaceholder(
                     .padding(18.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-                PlaceholderRow("锁屏与主屏", "已完成", isLightTheme)
-                PlaceholderRow("动态岛", "点击展开", isLightTheme)
-                PlaceholderRow("控制中心", "右上角下拉", isLightTheme)
-                PlaceholderRow("通知中心", "左上角下拉", isLightTheme)
+                PlaceholderRow("Lock Screen & Home Screen", "Completed", isLightTheme)
+                PlaceholderRow("Dynamic Island", "Tap to expand", isLightTheme)
+                PlaceholderRow("Control Center", "Pull down from top right", isLightTheme)
+                PlaceholderRow("Notification Center", "Pull down from top left", isLightTheme)
             }
         }
 
         Spacer(Modifier.weight(1f))
 
         BasicText(
-            "从底部上滑返回主屏幕",
+            "Swipe up from the bottom to return home",
             style = TextStyle(IosColors.secondaryContent(isLightTheme), 13.sp)
         )
 

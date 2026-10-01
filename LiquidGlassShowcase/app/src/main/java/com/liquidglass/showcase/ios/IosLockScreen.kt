@@ -111,7 +111,7 @@ fun BoxScope.IosLockScreen(
         Spacer(Modifier.height(18.dp))
 
         BasicText(
-            "10 月 1 日 星期四",
+            "October 1, Thursday",
             style = TextStyle(Color.White.copy(alpha = 0.9f), 17.sp, FontWeight.Medium)
         )
         BasicText(
@@ -128,9 +128,9 @@ fun BoxScope.IosLockScreen(
         IosNotificationCard(
             backdrop = backdrop,
             app = IosAppCatalog.allApps.first { it.id == "messages" },
-            title = "信息",
-            body = "液态玻璃做得很好，你现在做一个苹果系统模拟器吧",
-            time = "现在",
+            title = "Messages",
+            body = "Great job with the liquid glass — now make an Apple system simulator",
+            time = "Now",
             modifier = Modifier.padding(horizontal = 20.dp),
             surfaceColor = Color.White.copy(alpha = 0.14f)
         )
@@ -140,9 +140,9 @@ fun BoxScope.IosLockScreen(
         IosNotificationCard(
             backdrop = backdrop,
             app = IosAppCatalog.allApps.first { it.id == "music" },
-            title = "音乐",
-            body = "正在播放 · 液态玻璃 演示音轨",
-            time = "5 分钟前",
+            title = "Music",
+            body = "Now Playing · Liquid Glass Demo Track",
+            time = "5 minutes ago",
             modifier = Modifier.padding(horizontal = 20.dp),
             surfaceColor = Color.White.copy(alpha = 0.14f)
         )
@@ -175,7 +175,7 @@ fun BoxScope.IosLockScreen(
         Spacer(Modifier.height(26.dp))
 
         BasicText(
-            "上滑解锁",
+            "Swipe up to unlock",
             style = TextStyle(Color.White.copy(alpha = 0.75f), 14.sp, FontWeight.Medium)
         )
 

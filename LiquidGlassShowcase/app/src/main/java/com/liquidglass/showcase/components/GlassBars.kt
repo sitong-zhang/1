@@ -449,7 +449,7 @@ fun GlassSearchBar(
     onQueryChange: (String) -> Unit,
     backdrop: Backdrop,
     modifier: Modifier = Modifier,
-    placeholder: String = "搜索",
+    placeholder: String = "Search",
     isLightTheme: Boolean = true
 ) {
     val contentColor = IosColors.content(isLightTheme)
@@ -495,8 +495,8 @@ fun GlassTextField(
     onValueChange: (String) -> Unit,
     backdrop: Backdrop,
     modifier: Modifier = Modifier,
-    label: String = "输入框",
-    placeholder: String = "请输入内容",
+    label: String = "Input Field",
+    placeholder: String = "Enter text",
     isLightTheme: Boolean = true
 ) {
     val contentColor = IosColors.content(isLightTheme)

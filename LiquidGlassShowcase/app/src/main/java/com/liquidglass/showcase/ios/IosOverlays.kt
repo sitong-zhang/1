@@ -105,7 +105,7 @@ fun BoxScope.IosControlCenter(
                         size = 18.dp
                     )
                     BasicText(
-                        "切换壁纸",
+                        "Switch Wallpaper",
                         style = TextStyle(IosColors.content(isLightTheme), 15.sp)
                     )
                 }
@@ -123,7 +123,7 @@ fun BoxScope.IosControlCenter(
                         size = 18.dp
                     )
                     BasicText(
-                        "锁定",
+                        "Lock",
                         style = TextStyle(IosColors.content(isLightTheme), 15.sp)
                     )
                 }
@@ -160,7 +160,7 @@ fun BoxScope.IosNotificationCenter(
                 style = TextStyle(contentColor, 68.sp, FontWeight.Light)
             )
             BasicText(
-                "10 月 1 日 星期四",
+                "October 1, Thursday",
                 style = TextStyle(contentColor.copy(alpha = 0.75f), 16.sp, FontWeight.Medium)
             )
 
@@ -169,9 +169,9 @@ fun BoxScope.IosNotificationCenter(
             IosNotificationCard(
                 backdrop = backdrop,
                 app = IosAppCatalog.allApps.first { it.id == "messages" },
-                title = "信息",
-                body = "液态玻璃做得很好，你现在做一个苹果系统模拟器吧",
-                time = "现在"
+                title = "Messages",
+                body = "Great job with the liquid glass — now make an Apple system simulator",
+                time = "Now"
             )
 
             Spacer(Modifier.height(12.dp))
@@ -179,9 +179,9 @@ fun BoxScope.IosNotificationCenter(
             IosNotificationCard(
                 backdrop = backdrop,
                 app = IosAppCatalog.allApps.first { it.id == "news" },
-                title = "新闻",
-                body = "今日头条：iOS 26 液态玻璃设计语言全解析",
-                time = "12 分钟前"
+                title = "News",
+                body = "Top Story: A Full Breakdown of iOS 26 Liquid Glass Design Language",
+                time = "12 minutes ago"
             )
 
             Spacer(Modifier.height(12.dp))
@@ -189,9 +189,9 @@ fun BoxScope.IosNotificationCenter(
             IosNotificationCard(
                 backdrop = backdrop,
                 app = IosAppCatalog.allApps.first { it.id == "fitness" },
-                title = "健身",
-                body = "该活动一下了，今天还差 180 千卡",
-                time = "1 小时前"
+                title = "Fitness",
+                body = "Time to move — you're still 180 kcal short today",
+                time = "1 hour ago"
             )
         }
     }
