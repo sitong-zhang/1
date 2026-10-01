@@ -88,9 +88,9 @@ import com.liquidglass.showcase.core.ios.GlassIcons
 import com.liquidglass.showcase.core.ios.IosColors
 
 private val CatalogTabs = listOf(
-    GlassTabItem("组件", GlassIcons.Grid),
-    GlassTabItem("控制中心", GlassIcons.Sliders),
-    GlassTabItem("弹窗", GlassIcons.Ellipsis)
+    GlassTabItem("Components", GlassIcons.Grid),
+    GlassTabItem("Control Center", GlassIcons.Sliders),
+    GlassTabItem("Popups", GlassIcons.Ellipsis)
 )
 
 /**
@@ -109,7 +109,7 @@ fun BoxScope.CatalogScreen(
     var showSheet by remember { mutableStateOf(false) }
     var showToast by remember { mutableStateOf(false) }
     var showMenu by remember { mutableStateOf(false) }
-    var toastText by remember { mutableStateOf("已复制到剪贴板") }
+    var toastText by remember { mutableStateOf("Copied to clipboard") }
 
     LaunchedEffect(showToast) {
         if (showToast) {
@@ -125,7 +125,7 @@ fun BoxScope.CatalogScreen(
             onShowDialog = { showDialog = true },
             onShowSheet = { showSheet = true },
             onShowToast = {
-                toastText = "液态玻璃已更新"
+                toastText = "Liquid glass updated"
                 showToast = true
             }
         )
@@ -140,18 +140,18 @@ fun BoxScope.CatalogScreen(
             onShowSheet = { showSheet = true },
             onShowMenu = { showMenu = true },
             onShowToast = {
-                toastText = "操作已完成"
+                toastText = "Operation completed"
                 showToast = true
             }
         )
     }
 
-    // 10. 导航栏 — upstream `tutorials/glass-bottom-bar` material
+    // 10. Navigation bar — upstream `tutorials/glass-bottom-bar` material
     GlassNavBar(
         title = when (tabIndex) {
-            0 -> "液态玻璃组件"
-            1 -> "控制中心"
-            else -> "弹窗与提示"
+            0 -> "Liquid Glass Components"
+            1 -> "Control Center"
+            else -> "Popups & Alerts"
         },
         backdrop = backdrop,
         modifier = Modifier
@@ -169,7 +169,7 @@ fun BoxScope.CatalogScreen(
         }
     )
 
-    // 11. 底部标签栏 — upstream `components/LiquidBottomTabs.kt` material
+    // 11. Bottom tab bar — upstream `components/LiquidBottomTabs.kt` material
     GlassBottomTabBar(
         tabs = CatalogTabs,
         selectedTabIndex = { tabIndex },
@@ -188,9 +188,9 @@ fun BoxScope.CatalogScreen(
         visible = showDialog,
         onDismiss = { showDialog = false },
         backdrop = backdrop,
-        title = "液态玻璃弹窗",
-        message = "本弹窗严格复用仓库 DialogContent 的 AGSL 参数：colorControls(brightness, saturation = 1.5)、" +
-                "blur(16.dp)、lens(24.dp, 48.dp, depthEffect = true) 与 Highlight.Plain。",
+        title = "Liquid Glass Dialog",
+        message = "This dialog strictly reuses the repository's DialogContent AGSL parameters: colorControls(brightness, saturation = 1.5), " +
+                "blur(16.dp), lens(24.dp, 48.dp, depthEffect = true) and Highlight.Plain.",
         onConfirm = { showDialog = false },
         isLightTheme = isLightTheme
     )
@@ -199,8 +199,8 @@ fun BoxScope.CatalogScreen(
         visible = showAlert,
         onDismiss = { showAlert = false },
         backdrop = backdrop,
-        title = "是否保留玻璃质感？",
-        message = "提示框沿用同一套弹窗玻璃材质，边缘高光与圆角形变完全一致。",
+        title = "Keep the glass texture?",
+        message = "The alert uses the same dialog glass material, with identical edge highlights and corner deformation.",
         isLightTheme = isLightTheme
     )
 
@@ -208,8 +208,8 @@ fun BoxScope.CatalogScreen(
         visible = showSheet,
         onDismiss = { showSheet = false },
         backdrop = backdrop,
-        title = "操作表",
-        actions = listOf("用玻璃分享", "添加到玻璃收藏", "复制玻璃链接", "彻底删除"),
+        title = "Action Sheet",
+        actions = listOf("Share with glass", "Add to glass favorites", "Copy glass link", "Delete completely"),
         isLightTheme = isLightTheme
     )
 
@@ -217,7 +217,7 @@ fun BoxScope.CatalogScreen(
         visible = showMenu,
         onDismiss = { showMenu = false },
         backdrop = backdrop,
-        items = listOf("重命名", "复制", "移动到…", "删除"),
+        items = listOf("Rename", "Copy", "Move to…", "Delete"),
         isLightTheme = isLightTheme
     )
 
@@ -266,7 +266,7 @@ private fun ComponentsTab(
         verticalArrangement = Arrangement.spacedBy(14f.dp)
     ) {
         item {
-            // 1. 卡片
+            // 1. Card
             GlassCard(
                 backdrop = backdrop,
                 modifier = Modifier.fillMaxWidth(),
@@ -276,9 +276,9 @@ private fun ComponentsTab(
                     Modifier.padding(20f.dp),
                     verticalArrangement = Arrangement.spacedBy(8f.dp)
                 ) {
-                    SectionTitle("1 · 卡片 Card", contentColor)
+                    SectionTitle("1 · Card", contentColor)
                     Caption(
-                        "vibrancy() + lens(16.dp, 32.dp)，G2 连续圆角 32dp，默认 Highlight / Shadow。",
+                        "vibrancy() + lens(16.dp, 32.dp), G2 continuous corners 32dp, default Highlight / Shadow.",
                         contentColor.copy(alpha = 0.62f)
                     )
                 }
@@ -286,37 +286,37 @@ private fun ComponentsTab(
         }
 
         item {
-            // 2. 按钮
-            SectionTitle("2 · 按钮 Button", contentColor)
+            // 2. Button
+            SectionTitle("2 · Button", contentColor)
             Column(verticalArrangement = Arrangement.spacedBy(10f.dp)) {
                 GlassButton(onClick = onShowToast, backdrop = backdrop) {
-                    BasicText("透明液态按钮", style = TextStyle(contentColor, 15f.sp))
+                    BasicText("Transparent Liquid Button", style = TextStyle(contentColor, 15f.sp))
                 }
                 GlassButton(
                     onClick = onShowToast,
                     backdrop = backdrop,
                     surfaceColor = Color.White.copy(alpha = 0.3f)
                 ) {
-                    BasicText("表面液态按钮", style = TextStyle(contentColor, 15f.sp))
+                    BasicText("Surface Liquid Button", style = TextStyle(contentColor, 15f.sp))
                 }
                 GlassButton(
                     onClick = onShowDialog,
                     backdrop = backdrop,
                     tint = IosColors.AccentLight
                 ) {
-                    BasicText("着色液态按钮", style = TextStyle(IosColors.onAccent(), 15f.sp))
+                    BasicText("Tinted Liquid Button", style = TextStyle(IosColors.onAccent(), 15f.sp))
                 }
             }
             Spacer(10f.dp)
             Caption(
-                "vibrancy() + blur(2.dp) + lens(12.dp, 24.dp)，着色使用 BlendMode.Hue（同仓库 LiquidButton）。",
+                "vibrancy() + blur(2.dp) + lens(12.dp, 24.dp), tinting uses BlendMode.Hue (same as the repository's LiquidButton).",
                 contentColor.copy(alpha = 0.62f)
             )
         }
 
         item {
-            // 3. 图标按钮 · 4. 步进器
-            SectionTitle("3 · 图标按钮 Icon Button", contentColor)
+            // 3. Icon button · 4. Stepper
+            SectionTitle("3 · Icon Button", contentColor)
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12f.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -341,7 +341,7 @@ private fun ComponentsTab(
                 )
             }
             Spacer(18f.dp)
-            SectionTitle("4 · 步进器 Stepper", contentColor)
+            SectionTitle("4 · Stepper", contentColor)
             GlassStepper(
                 value = stepperValue,
                 onValueChange = { stepperValue = it },
@@ -351,8 +351,8 @@ private fun ComponentsTab(
         }
 
         item {
-            // 5. 开关 · 6. 滑块
-            SectionTitle("5 · 开关 Toggle", contentColor)
+            // 5. Toggle · 6. Slider
+            SectionTitle("5 · Toggle", contentColor)
             GlassToggle(
                 selected = { toggleOn },
                 onSelect = { toggleOn = it },
@@ -360,7 +360,7 @@ private fun ComponentsTab(
                 isLightTheme = isLightTheme
             )
             Spacer(18f.dp)
-            SectionTitle("6 · 滑块 Slider", contentColor)
+            SectionTitle("6 · Slider", contentColor)
             GlassSlider(
                 value = { sliderValue },
                 onValueChange = { sliderValue = it },
@@ -369,16 +369,16 @@ private fun ComponentsTab(
             )
             Spacer(6f.dp)
             Caption(
-                "拖动玻璃滑块：blur(8.dp × (1 − press)) + lens(10.dp × press, 14.dp × press, chromaticAberration = true)。",
+                "Drag the glass slider: blur(8.dp × (1 − press)) + lens(10.dp × press, 14.dp × press, chromaticAberration = true).",
                 contentColor.copy(alpha = 0.62f)
             )
         }
 
         item {
-            // 7. 分段控件
-            SectionTitle("7 · 分段控件 Segmented Control", contentColor)
+            // 7. Segmented control
+            SectionTitle("7 · Segmented Control", contentColor)
             GlassSegmentedControl(
-                segments = listOf("全部", "进行中", "已完成"),
+                segments = listOf("All", "In Progress", "Completed"),
                 selectedIndex = segmentedIndex,
                 onSelected = { segmentedIndex = it },
                 backdrop = backdrop,
@@ -388,8 +388,8 @@ private fun ComponentsTab(
         }
 
         item {
-            // 8. 输入框 · 9. 搜索框
-            SectionTitle("8 · 输入框 Text Field", contentColor)
+            // 8. Text field · 9. Search bar
+            SectionTitle("8 · Text Field", contentColor)
             GlassTextField(
                 value = textValue,
                 onValueChange = { textValue = it },
@@ -398,7 +398,7 @@ private fun ComponentsTab(
                 isLightTheme = isLightTheme
             )
             Spacer(18f.dp)
-            SectionTitle("9 · 搜索框 Search Bar", contentColor)
+            SectionTitle("9 · Search Bar", contentColor)
             GlassSearchBar(
                 query = query,
                 onQueryChange = { query = it },
@@ -409,8 +409,8 @@ private fun ComponentsTab(
         }
 
         item {
-            // 18. 复选框 · 19. 单选按钮
-            SectionTitle("18 · 复选框 Checkbox", contentColor)
+            // 18. Checkbox · 19. Radio
+            SectionTitle("18 · Checkbox", contentColor)
             Row(
                 horizontalArrangement = Arrangement.spacedBy(14f.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -422,14 +422,14 @@ private fun ComponentsTab(
                     isLightTheme = isLightTheme
                 )
                 Caption(
-                    if (checked) "已选中" else "未选中",
+                    if (checked) "Selected" else "Not selected",
                     contentColor.copy(alpha = 0.7f)
                 )
             }
             Spacer(18f.dp)
-            SectionTitle("19 · 单选按钮 Radio", contentColor)
+            SectionTitle("19 · Radio", contentColor)
             Row(horizontalArrangement = Arrangement.spacedBy(14f.dp)) {
-                listOf("标准", "大号", "紧凑").forEachIndexed { index, label ->
+                listOf("Standard", "Large", "Compact").forEachIndexed { index, label ->
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(6f.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -447,15 +447,15 @@ private fun ComponentsTab(
         }
 
         item {
-            // 20. 标签 · 21. 头像 · 22. 角标
-            SectionTitle("20 · 标签 Chip", contentColor)
+            // 20. Chip · 21. Avatar · 22. Badge
+            SectionTitle("20 · Chip", contentColor)
             Row(horizontalArrangement = Arrangement.spacedBy(10f.dp)) {
-                GlassChip("液态玻璃", backdrop, selectedColor = IosColors.AccentLight, contentColor = contentColor)
-                GlassChip("折射", backdrop, isSelected = true, selectedColor = IosColors.AccentLight)
-                GlassChip("色散", backdrop, contentColor = contentColor)
+                GlassChip("Liquid Glass", backdrop, selectedColor = IosColors.AccentLight, contentColor = contentColor)
+                GlassChip("Refraction", backdrop, isSelected = true, selectedColor = IosColors.AccentLight)
+                GlassChip("Dispersion", backdrop, contentColor = contentColor)
             }
             Spacer(18f.dp)
-            SectionTitle("21 · 头像 Avatar · 22 · 角标 Badge", contentColor)
+            SectionTitle("21 · Avatar · 22 · Badge", contentColor)
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16f.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -484,12 +484,12 @@ private fun ComponentsTab(
         }
 
         item {
-            // 15. 列表项
-            SectionTitle("15 · 列表项 List Item", contentColor)
+            // 15. List item
+            SectionTitle("15 · List Item", contentColor)
             GlassListGroup(backdrop = backdrop, isLightTheme = isLightTheme) {
                 GlassListItem(
-                    title = "液态玻璃",
-                    subtitle = "Backdrop 2.0.0 · AGSL 着色器",
+                    title = "Liquid Glass",
+                    subtitle = "Backdrop 2.0.0 · AGSL Shader",
                     icon = GlassIcons.Droplet,
                     backdrop = backdrop,
                     isLightTheme = isLightTheme,
@@ -497,7 +497,7 @@ private fun ComponentsTab(
                 )
                 GlassListDivider(isLightTheme, startPadding = 62f.dp)
                 GlassListItem(
-                    title = "折射高度 / 强度",
+                    title = "Refraction Height / Intensity",
                     subtitle = "lens(24.dp, 48.dp, depthEffect = true)",
                     icon = GlassIcons.Sliders,
                     backdrop = backdrop,
@@ -506,8 +506,8 @@ private fun ComponentsTab(
                 )
                 GlassListDivider(isLightTheme, startPadding = 62f.dp)
                 GlassListItem(
-                    title = "色散",
-                    subtitle = "7 段色散采样 · chromaticAberration",
+                    title = "Dispersion",
+                    subtitle = "7-segment dispersion sampling · chromaticAberration",
                     icon = GlassIcons.Star,
                     backdrop = backdrop,
                     isLightTheme = isLightTheme,
@@ -517,8 +517,8 @@ private fun ComponentsTab(
         }
 
         item {
-            // 16. 进度条 · 17. 活动指示器
-            SectionTitle("16 · 进度条 Progress Bar", contentColor)
+            // 16. Progress bar · 17. Activity indicator
+            SectionTitle("16 · Progress Bar", contentColor)
             GlassProgressBar(
                 progress = progress,
                 backdrop = backdrop,
@@ -526,24 +526,24 @@ private fun ComponentsTab(
                 isLightTheme = isLightTheme
             )
             Spacer(18f.dp)
-            SectionTitle("17 · 活动指示器 Activity Indicator", contentColor)
+            SectionTitle("17 · Activity Indicator", contentColor)
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16f.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 GlassActivityIndicator(backdrop = backdrop, isLightTheme = isLightTheme)
                 Caption(
-                    "玻璃容器：vibrancy() + blur(2.dp) + lens(12.dp, 24.dp)",
+                    "Glass container: vibrancy() + blur(2.dp) + lens(12.dp, 24.dp)",
                     contentColor.copy(alpha = 0.62f)
                 )
             }
         }
 
         item {
-            // 25. 选择器
-            SectionTitle("25 · 选择器 Picker", contentColor)
+            // 25. Picker
+            SectionTitle("25 · Picker", contentColor)
             GlassPicker(
-                items = listOf("液态玻璃", "毛玻璃", "金属", "亚克力"),
+                items = listOf("Liquid Glass", "Frosted Glass", "Metal", "Acrylic"),
                 selectedIndex = pickerIndex,
                 onSelected = { pickerIndex = it },
                 backdrop = backdrop,
@@ -563,10 +563,10 @@ private fun ControlCenterTab(backdrop: Backdrop, isLightTheme: Boolean) {
         verticalArrangement = Arrangement.spacedBy(16f.dp)
     ) {
         item {
-            SectionTitle("26 · 控制中心 Control Center", contentColor)
+            SectionTitle("26 · Control Center", contentColor)
             Caption(
-                "vibrancy() + lens(24.dp, 48.dp, depthEffect = true)，Highlight 角度由重力传感器驱动" +
-                        "（HighlightStyle.Default(angle = gravityAngle, falloff = 2f)），与仓库 ControlCenterContent 一致。",
+                "vibrancy() + lens(24.dp, 48.dp, depthEffect = true), Highlight angle is driven by the gravity sensor" +
+                        " (HighlightStyle.Default(angle = gravityAngle, falloff = 2f)), consistent with the repository's ControlCenterContent.",
                 contentColor.copy(alpha = 0.62f)
             )
         }
@@ -596,26 +596,26 @@ private fun OverlaysTab(
         contentPadding = PaddingValues(start = 16f.dp, end = 16f.dp, top = 104f.dp, bottom = 132f.dp),
         verticalArrangement = Arrangement.spacedBy(14f.dp)
     ) {
-        item { SectionTitle("12 · 弹窗 Dialog", contentColor) }
-        item { GlassButton(onClick = onShowDialog, backdrop = backdrop) { BasicText("打开液态玻璃弹窗", style = TextStyle(contentColor, 15f.sp)) } }
+        item { SectionTitle("12 · Dialog", contentColor) }
+        item { GlassButton(onClick = onShowDialog, backdrop = backdrop) { BasicText("Open Liquid Glass Dialog", style = TextStyle(contentColor, 15f.sp)) } }
 
-        item { SectionTitle("13 · 提示框 Alert", contentColor) }
-        item { GlassButton(onClick = onShowAlert, backdrop = backdrop, surfaceColor = Color.White.copy(alpha = 0.3f)) { BasicText("打开提示框", style = TextStyle(contentColor, 15f.sp)) } }
+        item { SectionTitle("13 · Alert", contentColor) }
+        item { GlassButton(onClick = onShowAlert, backdrop = backdrop, surfaceColor = Color.White.copy(alpha = 0.3f)) { BasicText("Open Alert", style = TextStyle(contentColor, 15f.sp)) } }
 
-        item { SectionTitle("14 · 操作表 Action Sheet", contentColor) }
-        item { GlassButton(onClick = onShowSheet, backdrop = backdrop, surfaceColor = Color.White.copy(alpha = 0.3f)) { BasicText("弹出操作表", style = TextStyle(contentColor, 15f.sp)) } }
+        item { SectionTitle("14 · Action Sheet", contentColor) }
+        item { GlassButton(onClick = onShowSheet, backdrop = backdrop, surfaceColor = Color.White.copy(alpha = 0.3f)) { BasicText("Show Action Sheet", style = TextStyle(contentColor, 15f.sp)) } }
 
-        item { SectionTitle("23 · 轻提示 Toast", contentColor) }
-        item { GlassButton(onClick = onShowToast, backdrop = backdrop, tint = IosColors.SwitchAccentLight) { BasicText("显示轻提示", style = TextStyle(IosColors.onAccent(), 15f.sp)) } }
+        item { SectionTitle("23 · Toast", contentColor) }
+        item { GlassButton(onClick = onShowToast, backdrop = backdrop, tint = IosColors.SwitchAccentLight) { BasicText("Show Toast", style = TextStyle(IosColors.onAccent(), 15f.sp)) } }
 
-        item { SectionTitle("24 · 浮层菜单 Popover Menu", contentColor) }
-        item { GlassButton(onClick = onShowMenu, backdrop = backdrop) { BasicText("打开浮层菜单", style = TextStyle(contentColor, 15f.sp)) } }
+        item { SectionTitle("24 · Popover Menu", contentColor) }
+        item { GlassButton(onClick = onShowMenu, backdrop = backdrop) { BasicText("Open Popover Menu", style = TextStyle(contentColor, 15f.sp)) } }
 
         item {
             Caption(
-                "全部浮层共用仓库材质：弹窗/提示框/浮层菜单使用 DialogContent 配方，操作表使用官方文档的 " +
-                        "GlassBottomSheet 配方（vibrancy + blur(4.dp) + lens(24.dp, 48.dp, depthEffect)）；" +
-                        "浮层内部按钮通过 exportedBackdrop 实现「玻璃叠玻璃」。",
+                "All overlays share the repository's material: dialog/alert/popover menu use the DialogContent recipe, " +
+                        "the action sheet uses the official documentation's GlassBottomSheet recipe (vibrancy + blur(4.dp) + lens(24.dp, 48.dp, depthEffect)); " +
+                        "the overlay's inner buttons achieve \"glass-on-glass\" via exportedBackdrop.",
                 contentColor.copy(alpha = 0.62f)
             )
         }

@@ -109,7 +109,7 @@ fun BoxScope.SplashScreen(
         }
 
         BasicText(
-            "苹果系统",
+            "Apple System",
             style = TextStyle(contentColor, 22f.sp, FontWeight.SemiBold)
         )
         BasicText(

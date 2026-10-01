@@ -80,8 +80,8 @@ fun BoxScope.GlassDialog(
     backdrop: Backdrop,
     title: String,
     message: String,
-    cancelText: String = "取消",
-    confirmText: String = "确定",
+    cancelText: String = "Cancel",
+    confirmText: String = "OK",
     onConfirm: () -> Unit = {},
     isLightTheme: Boolean = true
 ) {
@@ -219,7 +219,7 @@ fun BoxScope.GlassAlert(
     backdrop: Backdrop,
     title: String,
     message: String,
-    confirmText: String = "好的",
+    confirmText: String = "OK",
     isLightTheme: Boolean = true
 ) {
     val contentColor = IosColors.content(isLightTheme)
